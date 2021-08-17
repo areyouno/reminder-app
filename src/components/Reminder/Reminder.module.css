@@ -1,0 +1,97 @@
+.reminder-container {
+       width: 100%;
+       padding: 0.5rem 0 0 0.6rem;
+       position: relative;
+       background: #403d3d;
+}
+
+.reminder__todo-title {
+       color: grey;
+}
+
+.reminder__no-reminder {
+       font-size: 2rem;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       margin-left: -125px;
+       color: grey;
+}
+
+.reminder__btn-radio-container {
+       display: inline-block;
+}
+
+.reminder__btn-radio {
+       /* float: left; */
+       vertical-align: middle;
+       height: 20px;
+       /* opacity: 1; */
+}
+
+.reminder__btn-radio--hide {
+       vertical-align: middle;
+       opacity: 0;
+       transition: opacity 0.5s;
+}
+
+.reminder__reminder-row {
+       border-bottom: 1px solid grey;
+       padding-bottom: 0.4rem;
+       /* opacity: 1;
+       transition: opacity 1s; */
+       display: inline-block;
+       width: calc(100% - 21px);
+}
+
+.reminder__reminder-row--hide {
+       /* display: none; */
+       opacity: 0;
+       transition: opacity 0.5s;
+}
+
+.reminder__reminder-item {
+       /* list-style-type: none; */
+       color: grey;
+       font-size: 0.9rem;
+       background-color: transparent;
+       border: none;
+       outline: none;
+}
+
+.reminder__footer-add-reminder {
+       width: 100%;
+       height: 51px;
+       background-color: #312f2f;
+       position: absolute;
+       bottom: 0;
+       right: 0;
+       backdrop-filter: blur(10px);
+}
+
+.reminder__btn-add-reminder {
+       font-size: 0.9rem;
+       border: none;
+       background-color: transparent;
+       color: #4b4bff;
+       outline: none;
+       cursor: pointer;
+       position: fixed;
+       left: 5px;
+       top: 5px;
+}
+
+.reminder__btn-add-reminder:disabled {
+       pointer-events: none;
+       opacity: 0.7;
+       color: black;
+}
+
+.newInput {
+       display: block;
+}
+
+.hide {
+       display: none;
+}
+

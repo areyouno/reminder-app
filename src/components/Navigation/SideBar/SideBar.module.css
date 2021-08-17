@@ -1,0 +1,111 @@
+.sidebar {
+       padding: 1rem 0.5rem;
+       width: 30%;
+       max-width: 294px;
+       min-width: 251px;
+       max-height: calc(100vh - 90px);
+       border-right: 1px solid black;
+       position: relative;
+       color: #f0e8e8;
+       background-color: #1d1c1c;
+       overflow-y: scroll;
+}
+
+.sidebar > div:nth-of-type(2) {
+       border-top-left-radius: 8px;
+       border-top-right-radius: 8px;
+}
+.sidebar > div:nth-last-child(1) {
+       border-bottom-left-radius: 8px;
+       border-bottom-right-radius: 8px;
+       border-bottom: transparent;
+}
+
+.sidebar__search {
+       position: relative;
+}
+.sidebar__search input {
+       text-indent: 30px;
+}
+
+.sidebar__icon {
+       position: absolute;
+       top: 28px;
+       left: 7px;
+       font-size: 18px;
+}
+
+.sidebar__searchbox {
+       margin: 1rem 0;
+       height: 30px;
+       width: 90%;
+       border-radius: 10px;
+       border-color: transparent;
+       background-color: #403d3d;
+       outline: none;
+       font-size: 17px;
+}
+
+.sidebar__label {
+       margin-bottom: 10px;
+}
+
+.sidebar__listItems {
+       /* list-style-type: none; */
+       border-bottom: 1px solid grey;
+       padding: 0.5em 0.5em;
+       display: flex;
+       justify-content: space-between;
+       background-color: #444444;
+}
+
+.sidebar__listItems.active,
+.sidebar__listItems:hover {
+       background-color: grey;
+}
+
+.footer {
+       /* width: inherit; */
+       /* max-width: 314px; */
+       min-width: 272px;
+       height: 50px;
+       background-color: #312f2f;
+       position: fixed;
+       bottom: 0px;
+       left: 0px;
+       backdrop-filter: blur(10px);
+       /* padding-top: 8px; */
+}
+
+.footer__btn {
+       font-size: 0.9rem;
+       border: none;
+       background-color: transparent;
+       color: #4b4bff;
+       outline: none;
+       cursor: pointer;
+       position: absolute;
+       right: 5px;
+       top: 5px;
+}
+
+/* width */
+::-webkit-scrollbar {
+       width: 6px;
+}
+/* Track */
+/* ::-webkit-scrollbar-track {
+       background: #f1f1f1;
+       border-radius: 20px;
+} */
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+       background: #888;
+       border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+       background: #555;
+}

@@ -1,0 +1,26 @@
+.topRow {
+       display: flex;
+       justify-content: space-between;
+}
+
+.btn {
+       background-color: transparent;
+       border: none;
+       color: #4b4bff;
+       outline: none;
+       cursor: pointer;
+       font: inherit;
+       /* padding: 10px; */
+       /* margin: 10px; */
+       align-items: center;
+}
+
+.btn:disabled {
+       color: #474747;
+}
+
+.middleRow {
+       align-items: center;
+       display: flex;
+       flex-direction: column;
+}
