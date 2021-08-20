@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/reminder-app/static/css/main.fae3a38b.chunk.css",
-    "main.js": "/reminder-app/static/js/main.4aab298b.chunk.js",
-    "main.js.map": "/reminder-app/static/js/main.4aab298b.chunk.js.map",
-    "runtime-main.js": "/reminder-app/static/js/runtime-main.23e8c44c.js",
-    "runtime-main.js.map": "/reminder-app/static/js/runtime-main.23e8c44c.js.map",
-    "static/js/2.735a46af.chunk.js": "/reminder-app/static/js/2.735a46af.chunk.js",
-    "static/js/2.735a46af.chunk.js.map": "/reminder-app/static/js/2.735a46af.chunk.js.map",
-    "static/js/3.8117c5eb.chunk.js": "/reminder-app/static/js/3.8117c5eb.chunk.js",
-    "static/js/3.8117c5eb.chunk.js.map": "/reminder-app/static/js/3.8117c5eb.chunk.js.map",
+    "main.css": "/reminder-app/static/css/main.289addb8.chunk.css",
+    "main.js": "/reminder-app/static/js/main.46d5cb28.chunk.js",
+    "main.js.map": "/reminder-app/static/js/main.46d5cb28.chunk.js.map",
+    "runtime-main.js": "/reminder-app/static/js/runtime-main.6f6b04ce.js",
+    "runtime-main.js.map": "/reminder-app/static/js/runtime-main.6f6b04ce.js.map",
+    "static/js/2.0a2022ea.chunk.js": "/reminder-app/static/js/2.0a2022ea.chunk.js",
+    "static/js/2.0a2022ea.chunk.js.map": "/reminder-app/static/js/2.0a2022ea.chunk.js.map",
+    "static/js/3.eea83e3b.chunk.js": "/reminder-app/static/js/3.eea83e3b.chunk.js",
+    "static/js/3.eea83e3b.chunk.js.map": "/reminder-app/static/js/3.eea83e3b.chunk.js.map",
     "index.html": "/reminder-app/index.html",
-    "static/css/main.fae3a38b.chunk.css.map": "/reminder-app/static/css/main.fae3a38b.chunk.css.map",
-    "static/js/2.735a46af.chunk.js.LICENSE.txt": "/reminder-app/static/js/2.735a46af.chunk.js.LICENSE.txt"
+    "static/css/main.289addb8.chunk.css.map": "/reminder-app/static/css/main.289addb8.chunk.css.map",
+    "static/js/2.0a2022ea.chunk.js.LICENSE.txt": "/reminder-app/static/js/2.0a2022ea.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.23e8c44c.js",
-    "static/js/2.735a46af.chunk.js",
-    "static/css/main.fae3a38b.chunk.css",
-    "static/js/main.4aab298b.chunk.js"
+    "static/js/runtime-main.6f6b04ce.js",
+    "static/js/2.0a2022ea.chunk.js",
+    "static/css/main.289addb8.chunk.css",
+    "static/js/main.46d5cb28.chunk.js"
   ]
 }
