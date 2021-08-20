@@ -84,6 +84,7 @@
        position: absolute;
        bottom: 0;
        left: 0;
+       -webkit-backdrop-filter: blur(20px);
        backdrop-filter: blur(20px);
        margin: 0;
        transition: margin 0.3s;

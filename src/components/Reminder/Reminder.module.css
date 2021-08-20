@@ -18,6 +18,11 @@
               margin-left: 29%;
               z-index: 1;
        }
+
+       .reminder__footer {
+              margin-left: 29%;
+              z-index: 1;
+       }
 }
 
 .reminder-container.container--show {
@@ -108,12 +113,13 @@
 }
 
 .reminder__footer {
-       width: 100%;
-       height: 51px;
+       width: 100vw;
+       height: 50px;
        background-color: #312f2f;
        position: absolute;
        bottom: 0;
        right: 0;
+       -webkit-backdrop-filter: blur(10px);
        backdrop-filter: blur(10px);
        z-index: 2;
        margin-left: 395px;
