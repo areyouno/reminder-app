@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import styles from './Reminder.module.css';
 
 import * as actions from '../../store/actions/index';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import Button from '@material-ui/core/Button';
+
 
 const Reminder = props => {
        const [isAdding, setIsAdding] = useState(false);
@@ -106,14 +109,15 @@ const Reminder = props => {
        );
 
        const addReminderFooter = (
-              <div className={styles['reminder__footer-add-reminder']}>
-                     <button className={styles['reminder__btn-add-reminder']} disabled={isAdding} onClick={newInputHandler}>
+              <div className={`${styles['reminder__footer']} ${props.show ? styles['footer--show'] : ''}`}>
+                     <button className={styles['reminder__footer-btn-add']} disabled={isAdding} onClick={newInputHandler}>
                             New Reminder
                      </button>
               </div>
        );
        return (
-              <div className={styles['reminder-container']}>
+              <div className={`${styles['reminder-container']} ${props.show ? styles['container--show'] : ''}`}>
+                     <Button onClick={props.returnHandler} style={{ padding: '6px 8px 6px 0px' }}><NavigateBeforeIcon />Lists</Button> 
                      <h2 className={styles['reminder__todo-title']}>{props.todoList[props.reminderListIndex].title}</h2>
                      {reminderList}
                      {newInput}

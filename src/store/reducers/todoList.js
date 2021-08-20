@@ -10,6 +10,50 @@ const initialState = {
               {
                      title: 'app ideas',
                      todoItems: ['gps tracker']
+              },
+              {
+                     title: 'day to day',
+                     todoItems: ['exercise', 'bfast/ligo', 'check jobs']
+              },
+              {
+                     title: 'app ideas',
+                     todoItems: ['gps tracker']
+              },{
+                     title: 'day to day',
+                     todoItems: ['exercise', 'bfast/ligo', 'check jobs']
+              },
+              {
+                     title: 'app ideas',
+                     todoItems: ['gps tracker']
+              },{
+                     title: 'day to day',
+                     todoItems: ['exercise', 'bfast/ligo', 'check jobs']
+              },
+              {
+                     title: 'app ideas',
+                     todoItems: ['gps tracker']
+              },{
+                     title: 'day to day',
+                     todoItems: ['exercise', 'bfast/ligo', 'check jobs']
+              },
+              {
+                     title: 'app ideas',
+                     todoItems: ['gps tracker']
+              },{
+                     title: 'day to end 1',
+                     todoItems: ['exercise', 'bfast/ligo', 'check jobs']
+              },
+              {
+                     title: 'app ideas',
+                     todoItems: ['gps tracker']
+              },
+              {
+                     title: 'day end',
+                     todoItems: ['exercise', 'bfast/ligo', 'check jobs']
+              },
+              {
+                     title: 'app ideas',
+                     todoItems: ['gps tracker']
               }
        ]
 };

@@ -1,14 +1,20 @@
 .sidebar {
-       padding: 1rem 0.5rem;
-       width: 30%;
-       max-width: 294px;
-       min-width: 251px;
-       max-height: calc(100vh - 90px);
-       border-right: 1px solid black;
-       position: relative;
+       width: 100%;
+       max-width: 390px;
+       height: 100%;
+       padding: 0 1rem;
+       position: absolute;
        color: #f0e8e8;
        background-color: #1d1c1c;
-       overflow-y: scroll;
+       overflow-y: auto;
+       margin: 0;
+       transition: margin 0.3s;
+       padding-bottom: 53px;
+}
+
+.sidebar.sidebar--hide {
+       margin-left: -395px;
+       transition: margin-left 0.3s;
 }
 
 .sidebar > div:nth-of-type(2) {
@@ -38,7 +44,7 @@
 .sidebar__searchbox {
        margin: 1rem 0;
        height: 30px;
-       width: 90%;
+       width: 100%;
        border-radius: 10px;
        border-color: transparent;
        background-color: #403d3d;
@@ -57,6 +63,7 @@
        display: flex;
        justify-content: space-between;
        background-color: #444444;
+       align-items: center;
 }
 
 .sidebar__listItems.active,
@@ -64,17 +71,29 @@
        background-color: grey;
 }
 
+.sidebar_listItems-count {
+       display: inline-block;
+       margin-left: auto;
+}
+
 .footer {
-       /* width: inherit; */
-       /* max-width: 314px; */
-       min-width: 272px;
+       // width: inherit;
+       width: 100%;
+       max-width: 390px;
        height: 50px;
-       background-color: #312f2f;
-       position: fixed;
-       bottom: 0px;
-       left: 0px;
-       backdrop-filter: blur(10px);
-       /* padding-top: 8px; */
+       position: absolute;
+       bottom: 0;
+       left: 0;
+       backdrop-filter: blur(20px);
+       margin: 0;
+       transition: margin 0.3s;
+       background: #1d1c1c;
+       mix-blend-mode: difference;
+}
+
+.footer.footer--hide {
+       margin-left: -395px;
+       transition: margin-left 0.3s;
 }
 
 .footer__btn {
@@ -108,4 +127,20 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
        background: #555;
+}
+
+@media (min-width: 500px) {
+       .sidebar {
+              max-width: 29%;
+              height: 100%;
+              min-width: 251px;
+              overflow-y: auto;
+              border-right: 1px solid black;
+              display: block;
+       }
+
+       .footer {
+              max-width: 29%;
+              min-width: 251px;
+       }
 }

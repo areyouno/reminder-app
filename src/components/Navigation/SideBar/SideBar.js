@@ -6,15 +6,19 @@ import * as actions from '../../../store/actions/index';
 import NewList from '../../NewList/NewList';
 import Reminder from '../../Reminder/Reminder';
 import ReminderSearch from '../../Reminder/ReminderSearch';
-// import { updatedObject } from '../../../store/utility';
 import Modal from '../../UI/Modal/Modal';
-import styles from './SideBar.module.css';
+import styles from './SideBar.module.scss';
+
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 const SideBar = props => {
        const [itemId, setItemId] = useState(0);
        const [isAdding, setIsAdding] = useState(false);
        const [inputFieldValue, setInputFieldValue] = useState('');
        const [filteredReminders, setFilteredReminders] = useState([]);
+       const [isOpen, setIsOpen] = useState(false);
+       // const sidebarRef = useRef();
+
 
        useEffect(() => {
               reminderListHandler();
@@ -23,6 +27,12 @@ const SideBar = props => {
        const onTodoClickHandler = id => {
               setItemId(id);
               reminderListHandler(id);
+              setIsOpen(true);
+              // //Getting node element
+              // const ref = sidebarRef.current
+
+              // //Adding class to node element
+              // ref.classList.toggle('sidebar--hide');
        };
 
        const reminderListHandler = id => {
@@ -50,6 +60,10 @@ const SideBar = props => {
               setIsAdding(false);
        };
 
+       const onReturnToListsHandler = () => {
+              setIsOpen(false);
+       }
+
        const tdList = props.todoList.map((item, index) => {
               return (
                      <div
@@ -57,22 +71,24 @@ const SideBar = props => {
                             className={`${styles.sidebar__listItems} ${index === itemId ? styles.active : ''}`}
                             onClick={() => onTodoClickHandler(index)}>
                             <div>{item.title}</div>
-                            <div>{item.todoItems.length}</div>
+                            <div className={styles['sidebar_listItems-count']}>{item.todoItems.length}</div>
+                            <NavigateNextIcon />
                      </div>
               );
        });
 
        const addListFooter = (
               <div className={styles.footer}>
+              {/* <div className={`${styles.footer} ${isOpen ? styles['footer--hide'] : ""}`}> */}
                      <button className={styles.footer__btn} onClick={showAddListHandler}>
                             Add List
                      </button>
               </div>
        );
 
-       let reminder = <Reminder reminderListIndex={itemId} />;
+       let reminders = <Reminder reminderListIndex={itemId} show={isOpen} returnHandler={onReturnToListsHandler}/>;
        if (inputFieldValue) {
-              reminder = <ReminderSearch rList={filteredReminders} searchVal={inputFieldValue} />;
+              reminders = <ReminderSearch rList={filteredReminders} searchVal={inputFieldValue} show={isOpen} returnHandler={onReturnToListsHandler}/>;
        }
 
        const modal = (
@@ -84,6 +100,7 @@ const SideBar = props => {
        return (
               <Ox>
                      <div className={styles.sidebar}>
+                     {/* <div className={`${styles.sidebar} ${isOpen ? styles['sidebar--hide'] : ""}`}> */}
                             <div className={styles.sidebar__search}>
                                    <FaSearch className={styles.sidebar__icon}></FaSearch>
                                    <input
@@ -98,8 +115,7 @@ const SideBar = props => {
                      </div>
                      {addListFooter}
                      {isAdding ? modal : null}
-                     {/* <Reminder reminderListIndex={itemId} rList={filteredReminders} /> */}
-                     {reminder}
+                     {reminders}
               </Ox>
        );
 };
