@@ -95,8 +95,8 @@
        position: absolute;
        bottom: 0;
        right: 0;
-       /* -webkit-backdrop-filter: blur(40px);
-       backdrop-filter: blur(40px); */
+       -webkit-backdrop-filter: blur(40px);
+       backdrop-filter: blur(40px);
        margin-left: 395px;
        transition: margin-left 0.3s;
        z-index: 2;
