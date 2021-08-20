@@ -19,7 +19,6 @@ const SideBar = props => {
        const [isOpen, setIsOpen] = useState(false);
        // const sidebarRef = useRef();
 
-
        useEffect(() => {
               reminderListHandler();
        }, [inputFieldValue, itemId]);
@@ -62,7 +61,7 @@ const SideBar = props => {
 
        const onReturnToListsHandler = () => {
               setIsOpen(false);
-       }
+       };
 
        const tdList = props.todoList.map((item, index) => {
               return (
@@ -79,16 +78,23 @@ const SideBar = props => {
 
        const addListFooter = (
               <div className={styles.footer}>
-              {/* <div className={`${styles.footer} ${isOpen ? styles['footer--hide'] : ""}`}> */}
+                     {/* <div className={`${styles.footer} ${isOpen ? styles['footer--hide'] : ""}`}> */}
                      <button className={styles.footer__btn} onClick={showAddListHandler}>
                             Add List
                      </button>
               </div>
        );
 
-       let reminders = <Reminder reminderListIndex={itemId} show={isOpen} returnHandler={onReturnToListsHandler}/>;
+       let reminders = <Reminder reminderListIndex={itemId} show={isOpen} returnHandler={onReturnToListsHandler} />;
        if (inputFieldValue) {
-              reminders = <ReminderSearch rList={filteredReminders} searchVal={inputFieldValue} show={isOpen} returnHandler={onReturnToListsHandler}/>;
+              reminders = (
+                     <ReminderSearch
+                            rList={filteredReminders}
+                            searchVal={inputFieldValue}
+                            show={isOpen}
+                            returnHandler={onReturnToListsHandler}
+                     />
+              );
        }
 
        const modal = (
@@ -100,7 +106,7 @@ const SideBar = props => {
        return (
               <Ox>
                      <div className={styles.sidebar}>
-                     {/* <div className={`${styles.sidebar} ${isOpen ? styles['sidebar--hide'] : ""}`}> */}
+                            {/* <div className={`${styles.sidebar} ${isOpen ? styles['sidebar--hide'] : ""}`}> */}
                             <div className={styles.sidebar__search}>
                                    <FaSearch className={styles.sidebar__icon}></FaSearch>
                                    <input
@@ -114,8 +120,8 @@ const SideBar = props => {
                             {tdList}
                      </div>
                      {addListFooter}
-                     {isAdding ? modal : null}
                      {reminders}
+                     {isAdding ? modal : null}
               </Ox>
        );
 };
