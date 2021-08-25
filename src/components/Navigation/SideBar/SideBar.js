@@ -1,3 +1,4 @@
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { connect } from 'react-redux';
@@ -9,16 +10,13 @@ import ReminderSearch from '../../Reminder/ReminderSearch';
 import Modal from '../../UI/Modal/Modal';
 import styles from './SideBar.module.scss';
 
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-
 const SideBar = props => {
        const [itemId, setItemId] = useState(0);
        const [isAdding, setIsAdding] = useState(false);
        const [inputFieldValue, setInputFieldValue] = useState('');
        const [filteredReminders, setFilteredReminders] = useState([]);
        const [isOpen, setIsOpen] = useState(false);
-       // const sidebarRef = useRef();
-
+       let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
        useEffect(() => {
               reminderListHandler();
        }, [inputFieldValue, itemId]);
@@ -27,11 +25,6 @@ const SideBar = props => {
               setItemId(id);
               reminderListHandler(id);
               setIsOpen(true);
-              // //Getting node element
-              // const ref = sidebarRef.current
-
-              // //Adding class to node element
-              // ref.classList.toggle('sidebar--hide');
        };
 
        const reminderListHandler = id => {
@@ -62,6 +55,12 @@ const SideBar = props => {
        const onReturnToListsHandler = () => {
               setIsOpen(false);
        };
+
+       const modal = (
+              <Modal show={isAdding} modalClosed={cancelAddListHandler}>
+                     <NewList addListCancelled={cancelAddListHandler} addNewList={addListHandler} />
+              </Modal>
+       );
 
        const tdList = props.todoList.map((item, index) => {
               return (
@@ -97,31 +96,37 @@ const SideBar = props => {
               );
        }
 
-       const modal = (
-              <Modal show={isAdding} modalClosed={cancelAddListHandler}>
-                     <NewList addListCancelled={cancelAddListHandler} addNewList={addListHandler} />
-              </Modal>
+       const searchBar = (
+              <div className={styles.sidebar__search}>
+                     <FaSearch className={styles.sidebar__icon}></FaSearch>
+                     <input
+                            className={styles.sidebar__searchbox}
+                            placeholder="Search"
+                            value={inputFieldValue}
+                            onChange={e => setInputFieldValue(e.target.value)}
+                     />
+              </div>
        );
+
+       let main = (
+              <div className={styles['sidebar-lists']}>
+                     <h3 className={styles.sidebar__label}>My Lists</h3>
+                     {tdList}
+              </div>
+       );
+       if (inputFieldValue && vw < 500) {
+              main = <div>{reminders}</div>;
+       }
 
        return (
               <Ox>
+                     {isAdding ? modal : null}
                      <div className={styles.sidebar}>
-                            {/* <div className={`${styles.sidebar} ${isOpen ? styles['sidebar--hide'] : ""}`}> */}
-                            <div className={styles.sidebar__search}>
-                                   <FaSearch className={styles.sidebar__icon}></FaSearch>
-                                   <input
-                                          className={styles.sidebar__searchbox}
-                                          placeholder="Search"
-                                          value={inputFieldValue}
-                                          onChange={e => setInputFieldValue(e.target.value)}
-                                   />
-                            </div>
-                            <h3 className={styles.sidebar__label}>My Lists</h3>
-                            {tdList}
+                            {searchBar}
+                            {main}
                      </div>
                      {addListFooter}
-                     {reminders}
-                     {isAdding ? modal : null}
+                     {inputFieldValue && vw < 500 ? null : reminders}
               </Ox>
        );
 };
@@ -139,61 +144,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
-
-// const addNewReminderHandler = reminder => {
-//        if (reminder === '') {
-//               return;
-//        }
-
-//        let updatedList = props.todoList.todos.map((arr, index) => {
-//               console.log(reminder);
-//               console.log(itemId);
-//               if (index === itemId) {
-//                      arr.todoItems.push(reminder);
-//               }
-//               return arr;
-//        });
-
-//        let newTodo = { todos: updatedList };
-//        // setTdList(newTodo);
-// };
-
-// const inputChangedHandler = (event, item, index) => {
-//        // console.log(event.target.value);
-//        // setEditItemStr(event.target.value);
-//        // setReminderItem(reminderItem[index]);
-// };
-
-// const editReminderHandler = index => {
-//        //loop through array todoItems
-//        // console.log(index);
-//        // console.log(index.nativeEvent.data);
-//        // console.log(index.target.defaultValue);
-//        // console.log(index.target.id);
-//        // console.log(index.key);
-//        if (props.todoList.todos[itemId][index.target.id] === index.target.defaultValue) {
-//               return '';
-//        }
-
-//        //look for reminder in todos[itemId]
-//        if (index.nativeEvent.data == null) {
-//               console.log(index);
-//        }
-//        let newVal = index.target.defaultValue.concat(index.nativeEvent.data);
-//        let updatedReminderList = props.todoList.todos[itemId].todoItems.splice([index.target.id], 1, newVal);
-
-//        let updatedList = props.todoList.todos.splice([itemId], 1, updatedReminderList);
-//        console.log(updatedList);
-//        let newTodo = { todos: updatedList };
-//        console.log(newTodo);
-//        // setTdList(newTodo);
-// };
-
-// const addListHandler = title => {
-//        const newList = { title: title, todoItems: [] };
-//        const arrayCopy = [...props.todoList.todos];
-//        arrayCopy.push(newList);
-//        let newTodo = { todos: arrayCopy };
-//        setIsAdding(false);
-//        // setTdList(prevList => [...prevList.todos, newList]);
-// };

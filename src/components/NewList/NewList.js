@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../UI/Input/Input';
 import styles from './NewList.module.css';
 
 const NewList = props => {
        const [text, setText] = useState('');
-       const inputRef = useRef();
 
        useEffect(() => {
               return () => {
@@ -34,7 +33,7 @@ const NewList = props => {
                      {topRow}
                      <div className={styles.middleRow}>
                             <p>Icon</p>
-                            <Input value={text} changed={event => handleChange(event)} ref={inputRef} center="true" />
+                            <Input value={text} changed={event => handleChange(event)} center="true" />
                      </div>
               </div>
        );

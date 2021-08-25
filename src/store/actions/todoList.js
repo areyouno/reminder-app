@@ -41,3 +41,11 @@ export const addList = title => {
               listTitle: title
        };
 };
+
+export const toggleCompleteReminder = (id, reminderListId) => {
+       return {
+              type: actionTypes.TOGGLE_COMPLETE_REMINDER,
+              id: id,
+              reminderListId: reminderListId
+       };
+};

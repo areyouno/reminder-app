@@ -15,6 +15,19 @@
        transition: margin 0.3s;
 }
 
+.reminder-container-search {
+       position: fixed;
+       overflow-y: auto;
+}
+
+.container-header {
+       padding-left: 0.6rem;
+}
+
+.reminder-btn-return {
+       display: block;
+}
+
 .container-btn-navigate-before {
        padding: 6px 8px 6px 0px;
 }
@@ -31,6 +44,17 @@
 .reminder__btn-lists-icon {
        font-size: 38px;
        vertical-align: middle;
+}
+
+.reminder__container-search-item {
+       padding: 0 0 0.5rem 0.6rem;
+       /* padding-bottom: 0.5rem; */
+       margin-bottom: 0.5rem;
+       border-bottom: 2px solid grey;
+}
+
+.reminder__container-search-item > div:nth-last-child(1) > .reminder__reminder-row {
+       border-bottom-style: none;
 }
 
 .reminder__todo-title {
@@ -50,11 +74,12 @@
 
 .reminder__btn-radio-container {
        display: inline-block;
+       /* width: 100%; */
 }
 
 .reminder__btn-radio {
        /* float: left; */
-       vertical-align: middle;
+       /* vertical-align: middle; */
        height: 20px;
 }
 
@@ -64,11 +89,18 @@
        /* transition: opacity 0.5s; */
 }
 
+.reminder__row-container {
+       display: inline-flex;
+       align-items: center;
+       width: 100%;
+}
+
 .reminder__reminder-row {
        border-bottom: 1px solid grey;
-       padding-bottom: 0.4rem;
+       padding: 0.4rem 0;
        display: inline-block;
-       width: calc(100% - 21px);
+       /* width: calc(100% - 21px); */
+       width: 100%;
 }
 
 .reminder__reminder-row--hide {
@@ -136,5 +168,18 @@
 
        .reminder-container.container--show {
               margin-left: 29%;
+       }
+
+       .reminder-container-search {
+              width: auto;
+              position: relative;
+              min-width: 251px;
+              padding: 0;
+              margin-left: 29%;
+              z-index: 1;
+       }
+
+       .reminder-btn-return {
+              display: none;
        }
 }

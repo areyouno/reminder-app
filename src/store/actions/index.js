@@ -1,1 +1,1 @@
-export { addReminder, addList, editReminder } from './todoList';
+export { addReminder, addList, editReminder, toggleCompleteReminder } from './todoList';

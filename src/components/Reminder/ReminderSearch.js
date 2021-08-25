@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import Checkbox from '@material-ui/core/Checkbox';
+import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import styles from './Reminder.module.css';
-
 import * as actions from '../../store/actions/index';
+import styles from './Reminder.module.css';
 
 const ReminderSearch = props => {
        const [reminderListCopy, setReminderListCopy] = useState([]);
 
        useEffect(() => {
-              //   console.log(props.rList);
               let rCopy = [...props.rList];
-              //   if (props.rList === undefined) {
-              //          console.log('UNDEFINED');
-              //          rCopy = [...props.todoList];
-              //   }
-              console.log(props.todoList);
-              console.log(props.rList);
               setReminderListCopy(rCopy);
        }, [props.todoList, props.rList]); //to remove props.todoList (or not)
 
@@ -28,11 +23,6 @@ const ReminderSearch = props => {
        };
 
        const onSaveReminderHandler = (id, event, todoIndex) => {
-              // console.log(event.target.value);
-              //1st approach: send whole array
-              // let updatedReminderList = [...reminderListCopy];
-              // props.onEditReminder(updatedReminderList, props.reminderListIndex); //pass whole reminderlist and reminderListIndex
-
               //2nd approach: send todoItemIndex, flag, and depending on the flag(edit or remove) will pass the value;
               if (event.target.value === '') {
                      props.onEditReminder(id, 'remove', null, todoIndex);
@@ -41,30 +31,57 @@ const ReminderSearch = props => {
               props.onEditReminder(id, 'edit', event.target.value, todoIndex);
        };
 
+       const onToggleCheckboxHandler = (idx, listId) => {
+              props.onToggleCompleteReminder(idx, listId);
+       };
+
        let reminderList = <div></div>;
        if (reminderListCopy.length > 0) {
               let reminders = reminderListCopy;
               reminderList = reminders.map((todo, index) => {
                      return (
-                            <div key={index}>
-                                   <h2>{todo.title}</h2>
+                            <div key={index} className={`${styles['reminder__container-search-item']}`}>
+                                   <h2 className={styles['reminder__todo-title']}>{todo.title}</h2>
                                    {todo.todoItems.map((reminder, reminderIndex) => {
                                           return (
-                                                 <div key={reminderIndex}>
-                                                        <input className={styles.radioBtn} type="radio" />
-                                                        <input
-                                                               className={styles.reminderItem}
-                                                               type="text"
-                                                               id={reminderIndex}
-                                                               // value={item === reminderListCopy[index] ? reminderListCopy[index] : ''}
-                                                               value={reminder}
-                                                               onChange={event =>
-                                                                      onEditReminderHandler(reminderIndex, event, index)
-                                                               }
-                                                               onBlur={event =>
-                                                                      onSaveReminderHandler(reminderIndex, event, index)
-                                                               }
-                                                        />
+                                                 <div key={reminderIndex} className={styles['reminder__row-container']}>
+                                                        <div className={styles['reminder__btn-radio-container']}>
+                                                               <Checkbox
+                                                                      icon={<CircleUnchecked />}
+                                                                      checkedIcon={<RadioButtonChecked />}
+                                                                      color="default"
+                                                                      onClick={() =>
+                                                                             onToggleCheckboxHandler(
+                                                                                    index,
+                                                                                    reminderIndex
+                                                                             )
+                                                                      }
+                                                                      checked={reminder.completed}
+                                                                      className={styles['reminder__btn-radio']}
+                                                               />
+                                                        </div>
+                                                        <div className={styles['reminder__reminder-row']} key={index}>
+                                                               <input
+                                                                      className={styles['reminder__reminder-item']}
+                                                                      type="text"
+                                                                      id={reminderIndex}
+                                                                      value={reminder.desc}
+                                                                      onChange={event =>
+                                                                             onEditReminderHandler(
+                                                                                    reminderIndex,
+                                                                                    event,
+                                                                                    index
+                                                                             )
+                                                                      }
+                                                                      onBlur={event =>
+                                                                             onSaveReminderHandler(
+                                                                                    reminderIndex,
+                                                                                    event,
+                                                                                    index
+                                                                             )
+                                                                      }
+                                                               />
+                                                        </div>
                                                  </div>
                                           );
                                    })}
@@ -74,8 +91,8 @@ const ReminderSearch = props => {
        }
 
        return (
-              <div className={styles.reminderContainer}>
-                     <h1>Results for "{props.searchVal}"</h1>
+              <div className={styles['reminder-container-search']}>
+                     <h1 className={styles['container-header']}>Results for "{props.searchVal}"</h1>
                      {reminderList}
               </div>
        );
@@ -90,30 +107,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
        return {
               onAddReminder: (reminder, index) => dispatch(actions.addReminder(reminder, index)),
-              // onEditReminder: (reminders, index) => dispatch(actions.editReminder(reminders, index))
               onEditReminder: (id, flag, reminder, reminderListId) =>
-                     dispatch(actions.editReminder(id, flag, reminder, reminderListId))
+                     dispatch(actions.editReminder(id, flag, reminder, reminderListId)),
+              onToggleCompleteReminder: (id, reminderListId) =>
+                     dispatch(actions.toggleCompleteReminder(id, reminderListId))
        };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReminderSearch);
-
-//    if (props.todoList[props.reminderListIndex].todoItems.length > 0) {
-//           let reminders = reminderListCopy;
-//           reminderList = reminders.map((item, index) => {
-//                  return (
-//                         <div className={styles.reminderRow} key={index}>
-//                                <input className={styles.radioBtn} type="radio" />
-//                                <input
-//                                       className={styles.reminderItem}
-//                                       type="text"
-//                                       id={index}
-//                                       // value={item === reminderListCopy[index] ? reminderListCopy[index] : ''}
-//                                       value={item}
-//                                       onChange={event => onEditReminderHandler(index, event)}
-//                                       onBlur={event => onSaveReminderHandler(index, event)}
-//                                />
-//                         </div>
-//                  );
-//           });
-//    }
