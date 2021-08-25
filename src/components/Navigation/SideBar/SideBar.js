@@ -29,7 +29,7 @@ const SideBar = props => {
 
        const reminderListHandler = id => {
               if (inputFieldValue) {
-                     let arr = searchListHandler(props.todoList, inputFieldValue);
+                     let arr = searchListHandler(props.todoList, inputFieldValue.toLowerCase());
                      setFilteredReminders(arr);
               }
               // console.log(filteredReminders); //always delay to reflect current vlaue; would reflect on next batch update
