@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/reminder-app/static/css/main.7e25c3a8.chunk.css",
-    "main.js": "/reminder-app/static/js/main.f8c35640.chunk.js",
-    "main.js.map": "/reminder-app/static/js/main.f8c35640.chunk.js.map",
+    "main.js": "/reminder-app/static/js/main.5f4d8512.chunk.js",
+    "main.js.map": "/reminder-app/static/js/main.5f4d8512.chunk.js.map",
     "runtime-main.js": "/reminder-app/static/js/runtime-main.71372fe2.js",
     "runtime-main.js.map": "/reminder-app/static/js/runtime-main.71372fe2.js.map",
     "static/js/2.88dd0d19.chunk.js": "/reminder-app/static/js/2.88dd0d19.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.71372fe2.js",
     "static/js/2.88dd0d19.chunk.js",
     "static/css/main.7e25c3a8.chunk.css",
-    "static/js/main.f8c35640.chunk.js"
+    "static/js/main.5f4d8512.chunk.js"
   ]
 }
