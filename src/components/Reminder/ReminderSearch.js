@@ -38,9 +38,9 @@ const ReminderSearch = props => {
        let reminderList = <div></div>;
        if (reminderListCopy.length > 0) {
               let reminders = reminderListCopy;
-              reminderList = reminders.map((todo, index) => {
+              reminderList = reminders.map((todo, listIndex) => {
                      return (
-                            <div key={index} className={`${styles['reminder__container-search-item']}`}>
+                            <div key={listIndex} className={`${styles['reminder__container-search-item']}`}>
                                    <h2 className={styles['reminder__todo-title']}>{todo.title}</h2>
                                    {todo.todoItems.map((reminder, reminderIndex) => {
                                           return (
@@ -52,15 +52,17 @@ const ReminderSearch = props => {
                                                                       color="default"
                                                                       onClick={() =>
                                                                              onToggleCheckboxHandler(
-                                                                                    index,
-                                                                                    reminderIndex
+                                                                                    reminderIndex,
+                                                                                    listIndex
                                                                              )
                                                                       }
                                                                       checked={reminder.completed}
                                                                       className={styles['reminder__btn-radio']}
                                                                />
                                                         </div>
-                                                        <div className={styles['reminder__reminder-row']} key={index}>
+                                                        <div
+                                                               className={styles['reminder__reminder-row']}
+                                                               key={listIndex}>
                                                                <input
                                                                       className={styles['reminder__reminder-item']}
                                                                       type="text"
@@ -70,14 +72,14 @@ const ReminderSearch = props => {
                                                                              onEditReminderHandler(
                                                                                     reminderIndex,
                                                                                     event,
-                                                                                    index
+                                                                                    listIndex
                                                                              )
                                                                       }
                                                                       onBlur={event =>
                                                                              onSaveReminderHandler(
                                                                                     reminderIndex,
                                                                                     event,
-                                                                                    index
+                                                                                    listIndex
                                                                              )
                                                                       }
                                                                />
