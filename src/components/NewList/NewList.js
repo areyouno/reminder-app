@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Input from '../UI/Input/Input';
-import styles from './NewList.module.css';
+import React, { useState, useEffect } from "react";
+import Input from "../UI/Input/Input";
+import styles from "./NewList.module.scss";
 
 const NewList = props => {
-       const [text, setText] = useState('');
+       const [text, setText] = useState("");
 
        useEffect(() => {
               return () => {
-                     setText('');
+                     setText("");
               };
        }, []);
 
@@ -16,8 +16,8 @@ const NewList = props => {
               setText(event.target.value);
        };
 
-       let topRow = (
-              <div className={styles.topRow}>
+       let header = (
+              <div className={styles.newlist__header}>
                      <button className={styles.btn} onClick={props.addListCancelled}>
                             Cancel
                      </button>
@@ -28,13 +28,17 @@ const NewList = props => {
               </div>
        );
 
+       let input = (
+              <div className={styles.newlist__input}>
+                     <p>Icon</p>
+                     <Input value={text} changed={event => handleChange(event)} center="true" />
+              </div>
+       );
+
        return (
               <div>
-                     {topRow}
-                     <div className={styles.middleRow}>
-                            <p>Icon</p>
-                            <Input value={text} changed={event => handleChange(event)} center="true" />
-                     </div>
+                     {header}
+                     {input}
               </div>
        );
 };

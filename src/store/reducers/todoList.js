@@ -1,32 +1,112 @@
-import * as actionType from '../actions/actionTypes';
-import { updatedObject } from '../utility';
+import * as actionType from "../actions/actionTypes";
+import { updatedObject } from "../utility";
 
 const initialState = {
        todos: [
               {
-                     title: 'monday',
+                     title: "monday",
                      todoItems: [
-                            { desc: 'exercise', completed: false },
-                            { desc: 'go to bank', completed: false },
-                            { desc: 'prepare clothes for laundry', completed: false }
+                            { id: 1, desc: "exercise", isCompleted: false },
+                            { id: 2, desc: "go to bank", isCompleted: false },
+                            { id: 3, desc: "prepare clothes for laundry", isCompleted: true }
                      ]
               },
               {
-                     title: 'app ideas',
-                     todoItems: [{ desc: 'gps tracker', completed: false }]
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
               },
               {
-                     title: 'groceries',
+                     title: "groceries",
                      todoItems: [
-                            { desc: 'apple', completed: false },
-                            { desc: 'bread', completed: false },
-                            { desc: 'yoghurt', completed: false }
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
+                     ]
+              },
+              {
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
+              },
+              {
+                     title: "groceries",
+                     todoItems: [
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
+                     ]
+              },
+              {
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
+              },
+              {
+                     title: "groceries",
+                     todoItems: [
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
+                     ]
+              },
+              {
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
+              },
+              {
+                     title: "groceries",
+                     todoItems: [
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
+                     ]
+              },
+              {
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
+              },
+              {
+                     title: "groceries",
+                     todoItems: [
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
+                     ]
+              },
+              {
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
+              },
+              {
+                     title: "groceries",
+                     todoItems: [
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
+                     ]
+              },
+              {
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
+              },
+              {
+                     title: "groceries",
+                     todoItems: [
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
+                     ]
+              },
+              {
+                     title: "app ideas",
+                     todoItems: [{ id: 1, desc: "gps tracker", isCompleted: false }]
+              },
+              {
+                     title: "groceries",
+                     todoItems: [
+                            { id: 1, desc: "apple", isCompleted: false },
+                            { id: 2, desc: "bread", isCompleted: false },
+                            { id: 3, desc: "yoghurt", isCompleted: false }
                      ]
               }
-              // {
-              //        title: 'monday',
-              //        todoItems: ['exercise', 'go to bank', 'fix laundry']
-              // }
        ]
 };
 const setToDoList = (state, action) => {
@@ -41,7 +121,7 @@ const setToDoList = (state, action) => {
 const addReminder = (state, action) => {
        let updatedTodos = state.todos.map((arr, index) => {
               if (index === action.todoListIndex) {
-                     let item = { desc: action.reminderContent, completed: false };
+                     let item = { desc: action.reminderContent, isCompleted: false };
                      arr.todoItems.push(item);
               }
               return arr;
@@ -67,13 +147,13 @@ const editReminder = (state, action) => {
        const todosCopy = [...state.todos];
        let updatedReminder = { ...todosCopy[action.reminderListId] };
        let updatedTodoItems = [...updatedReminder.todoItems];
-       if (action.flag === 'remove') {
-              updatedTodoItems.splice(action.reminderId, 1);
-       } else if (action.flag === 'edit') {
-              let updatedReminder = { ...updatedTodoItems[action.reminderId] };
+       if (action.flag === "remove") {
+              let pos = updatedTodoItems.map(reminder => reminder.id).indexOf(action.reminderId);
+              updatedTodoItems.splice(pos, 1);
+       } else if (action.flag === "edit") {
+              let updatedReminder = { ...updatedTodoItems[action.reminderId - 1] };
               updatedReminder.desc = action.content;
-              console.log(updatedReminder);
-              updatedTodoItems.splice(action.reminderId, 1, updatedReminder);
+              updatedTodoItems.splice(action.reminderId - 1, 1, updatedReminder);
        }
        updatedReminder.todoItems = updatedTodoItems;
        todosCopy[action.reminderListId] = updatedReminder;
@@ -93,7 +173,7 @@ const toggleCompleteReminder = (state, action) => {
        let todosCopy = [...state.todos];
        let updatedReminder = { ...todosCopy[action.reminderListId] };
        let updatedTodoItems = [...updatedReminder.todoItems];
-       updatedTodoItems[action.id].completed = !updatedTodoItems[action.id].completed;
+       updatedTodoItems[action.id - 1].isCompleted = !updatedTodoItems[action.id - 1].isCompleted;
 
        updatedReminder.todoItems = updatedTodoItems;
        todosCopy[action.reminderListId] = updatedReminder;

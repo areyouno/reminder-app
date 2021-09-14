@@ -1,7 +1,5 @@
 .Input {
-       /* width: 100%; */
        padding: 10px;
-       /* box-sizing: border-box; */
 }
 
 .Label {
@@ -19,17 +17,14 @@
        font-size: 1.5rem;
        padding: 6px 10px;
        display: block;
-       /* width: 20.5rem; */
-       /* width: 90%; */
-       /* position: fixed; */
        left: 10rem;
        box-sizing: border-box;
-}
 
-.InputElement:focus {
-       outline: none;
-       background-color: #3f3e3e;
-       transition: all 0.5s ease-out;
+       &:focus {
+              outline: none;
+              background-color: #3f3e3e;
+              transition: all 0.5s ease-out;
+       }
 }
 
 .Invalid {

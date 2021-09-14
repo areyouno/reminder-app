@@ -1,0 +1,26 @@
+.newlist {
+       &__header {
+              display: flex;
+              justify-content: space-between;
+       }
+
+       &__input {
+              align-items: center;
+              display: flex;
+              flex-direction: column;
+       }
+}
+
+.btn {
+       background-color: transparent;
+       border: none;
+       color: #4b4bff;
+       outline: none;
+       cursor: pointer;
+       font: inherit;
+       align-items: center;
+
+       &:disabled {
+              color: #474747;
+       }
+}

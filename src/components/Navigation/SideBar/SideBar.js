@@ -1,22 +1,24 @@
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import React, { useEffect, useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import { connect } from 'react-redux';
-import Ox from '../../../hoc/Ox';
-import * as actions from '../../../store/actions/index';
-import NewList from '../../NewList/NewList';
-import Reminder from '../../Reminder/Reminder';
-import ReminderSearch from '../../Reminder/ReminderSearch';
-import Modal from '../../UI/Modal/Modal';
-import styles from './SideBar.module.scss';
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import React, { Fragment, useEffect, useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actions/index";
+import NewList from "../../NewList/NewList";
+import Reminder from "../../Reminder/Reminder";
+import ReminderSearch from "../../Reminder/ReminderSearch";
+import Modal from "../../UI/Modal/Modal";
+import styles from "./SideBar.module.scss";
 
 const SideBar = props => {
        const [itemId, setItemId] = useState(0);
        const [isAdding, setIsAdding] = useState(false);
-       const [inputFieldValue, setInputFieldValue] = useState('');
+       const [inputFieldValue, setInputFieldValue] = useState("");
        const [filteredReminders, setFilteredReminders] = useState([]);
        const [isOpen, setIsOpen] = useState(false);
+       const [isSearching, setIsSearching] = useState(false);
+
        let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+
        useEffect(() => {
               reminderListHandler();
        }, [inputFieldValue, itemId]);
@@ -56,33 +58,56 @@ const SideBar = props => {
               setIsOpen(false);
        };
 
+       const clearInput = () => {
+              setIsSearching(!isSearching);
+              setInputFieldValue("");
+       };
+
+       const inputBlurHandler = () => {
+              if (inputFieldValue === "") {
+                     setIsSearching(!isSearching);
+              }
+       };
+
        const modal = (
               <Modal show={isAdding} modalClosed={cancelAddListHandler}>
                      <NewList addListCancelled={cancelAddListHandler} addNewList={addListHandler} />
               </Modal>
        );
 
+       const searchBar = (
+              <div className={styles.sidebar__search}>
+                     <FaSearch className={styles.sidebar__icon}></FaSearch>
+                     <input
+                            className={`${styles.sidebar__searchbox} ${isSearching ? styles["searchbox--active"] : ""}`}
+                            placeholder="Search"
+                            value={inputFieldValue}
+                            onChange={e => setInputFieldValue(e.target.value)}
+                            onFocus={() => setIsSearching(!isSearching)}
+                            onBlur={() => inputBlurHandler()}
+                     />
+                     <button
+                            className={`${styles["sidebar__cancel-button"]} ${
+                                   isSearching ? styles["sidebar__cancel-button--show"] : ""
+                            }`}
+                            onClick={() => clearInput()}>
+                            Cancel
+                     </button>
+              </div>
+       );
+
        const tdList = props.todoList.map((item, index) => {
               return (
                      <div
                             key={index}
-                            className={`${styles.sidebar__listItems} ${index === itemId ? styles.active : ''}`}
+                            className={`${styles["sidebar__list-item"]} ${index === itemId ? styles.active : ""}`}
                             onClick={() => onTodoClickHandler(index)}>
                             <div>{item.title}</div>
-                            <div className={styles['sidebar_listItems-count']}>{item.todoItems.length}</div>
+                            <div className={styles["sidebar__list-item-count"]}>{item.todoItems.length}</div>
                             <NavigateNextIcon />
                      </div>
               );
        });
-
-       const addListFooter = (
-              <div className={styles.footer}>
-                     {/* <div className={`${styles.footer} ${isOpen ? styles['footer--hide'] : ""}`}> */}
-                     <button className={styles.footer__btn} onClick={showAddListHandler}>
-                            Add List
-                     </button>
-              </div>
-       );
 
        let reminders = <Reminder reminderListIndex={itemId} show={isOpen} returnHandler={onReturnToListsHandler} />;
        if (inputFieldValue) {
@@ -96,20 +121,8 @@ const SideBar = props => {
               );
        }
 
-       const searchBar = (
-              <div className={styles.sidebar__search}>
-                     <FaSearch className={styles.sidebar__icon}></FaSearch>
-                     <input
-                            className={styles.sidebar__searchbox}
-                            placeholder="Search"
-                            value={inputFieldValue}
-                            onChange={e => setInputFieldValue(e.target.value)}
-                     />
-              </div>
-       );
-
        let main = (
-              <div className={styles['sidebar-lists']}>
+              <div className={styles["sidebar__list"]}>
                      <h3 className={styles.sidebar__label}>My Lists</h3>
                      {tdList}
               </div>
@@ -118,8 +131,16 @@ const SideBar = props => {
               main = <div>{reminders}</div>;
        }
 
+       const addListFooter = (
+              <div className={styles.sidebar__footer}>
+                     <button className={styles.sidebar__footer__btn} onClick={showAddListHandler}>
+                            Add List
+                     </button>
+              </div>
+       );
+
        return (
-              <Ox>
+              <Fragment>
                      {isAdding ? modal : null}
                      <div className={styles.sidebar}>
                             {searchBar}
@@ -127,7 +148,7 @@ const SideBar = props => {
                      </div>
                      {addListFooter}
                      {inputFieldValue && vw < 500 ? null : reminders}
-              </Ox>
+              </Fragment>
        );
 };
 

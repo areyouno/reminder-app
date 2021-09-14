@@ -10,113 +10,148 @@
        margin: 0;
        transition: margin 0.3s;
        padding-bottom: 53px;
-}
 
-// .sidebar.sidebar--hide {
-//        margin-left: -395px;
-//        transition: margin-left 0.3s;
-// }
+       &__search {
+              position: relative;
+       }
+       &__search input {
+              text-indent: 30px;
+       }
 
-.sidebar .sidebar-lists > div:nth-of-type(1) {
-       border-top-left-radius: 8px;
-       border-top-right-radius: 8px;
-}
-.sidebar .sidebar-lists > div:nth-last-child(1) {
-       border-bottom-left-radius: 8px;
-       border-bottom-right-radius: 8px;
-       border-bottom: transparent;
-}
+       &__icon {
+              position: absolute;
+              top: 28px;
+              left: 7px;
+              font-size: 18px;
+       }
 
-.sidebar__search {
-       position: relative;
-}
-.sidebar__search input {
-       text-indent: 30px;
-}
+       &__searchbox {
+              margin: 1rem 0;
+              height: 30px;
+              width: 90%;
+              border-radius: 10px;
+              border-color: transparent;
+              background-color: #403d3d;
+              outline: none;
+              font-size: 17px;
+              display: inline-block;
 
-.sidebar__icon {
-       position: absolute;
-       top: 28px;
-       left: 7px;
-       font-size: 18px;
-}
+              transition: all 250ms ease-out;
 
-.sidebar__searchbox {
-       margin: 1rem 0;
-       height: 30px;
-       width: 100%;
-       border-radius: 10px;
-       border-color: transparent;
-       background-color: #403d3d;
-       outline: none;
-       font-size: 17px;
-}
+              &.searchbox--active {
+                     width: calc(100% - 70px);
+              }
+       }
 
-.sidebar__label {
-       margin-bottom: 10px;
-}
+       &__cancel-button {
+              visibility: hidden;
 
-.sidebar__listItems {
-       /* list-style-type: none; */
-       border-bottom: 1px solid grey;
-       padding: 0.5em 0.5em;
-       display: flex;
-       justify-content: space-between;
-       background-color: #444444;
-       align-items: center;
-}
+              font-size: 0.9rem;
+              border: none;
+              background-color: transparent;
+              color: #4b4bff;
+              outline: none;
+              cursor: pointer;
+              padding: 0 0 0 0.5em;
+              transition-timing-function: linear;
 
-.sidebar__listItems.active,
-.sidebar__listItems:hover {
-       background-color: grey;
-}
+              &--show {
+                     visibility: visible;
+                     transition: visibility 250ms linear 250ms;
+              }
+       }
 
-.sidebar_listItems-count {
-       display: inline-block;
-       margin-left: auto;
-}
+       &__list {
+              width: 90%;
+              position: absolute;
+              top: 4em;
+              padding-bottom: 53px;
 
-.footer {
-       width: 100%;
-       max-width: 390px;
-       height: 50px;
-       position: absolute;
-       bottom: 0;
-       left: 0;
-       -webkit-backdrop-filter: blur(40px);
-       backdrop-filter: blur(40px);
-       margin: 0;
-       transition: margin 0.3s;
-       background: #1d1c1c;
-       mix-blend-mode: difference;
-}
+              & > div:nth-of-type(1) {
+                     border-top-left-radius: 8px;
+                     border-top-right-radius: 8px;
+              }
+              & > div:nth-last-child(1) {
+                     border-bottom-left-radius: 8px;
+                     border-bottom-right-radius: 8px;
+                     border-bottom: transparent;
+              }
 
-// .footer.footer--hide {
-//        margin-left: -395px;
-//        transition: margin-left 0.3s;
-// }
+              &-item {
+                     /* list-style-type: none; */
+                     border-bottom: 1px solid grey;
+                     padding: 0.5em 0.5em;
+                     display: flex;
+                     justify-content: space-between;
+                     background-color: #444444;
+                     align-items: center;
 
-.footer__btn {
-       font-size: 0.9rem;
-       border: none;
-       background-color: transparent;
-       color: #4b4bff;
-       outline: none;
-       cursor: pointer;
-       position: absolute;
-       right: 5px;
-       top: 5px;
+                     &.active,
+                     &:hover {
+                            background-color: grey;
+                     }
+
+                     &-count {
+                            display: inline-block;
+                            margin-left: auto;
+                     }
+              }
+       }
+
+       &__label {
+              margin-bottom: 10px;
+       }
+
+       &__footer {
+              width: 100%;
+              max-width: 390px;
+              height: 50px;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              -webkit-backdrop-filter: blur(40px);
+              backdrop-filter: blur(40px);
+              margin: 0;
+              transition: margin 0.3s;
+              background: #1d1c1c;
+              mix-blend-mode: difference;
+
+              &__btn {
+                     font-size: 0.9rem;
+                     border: none;
+                     background-color: transparent;
+                     color: #4b4bff;
+                     outline: none;
+                     cursor: pointer;
+                     position: absolute;
+                     right: 5px;
+                     top: 5px;
+              }
+
+              @media (min-width: 500px) {
+                     & {
+                            max-width: 29%;
+                            min-width: 251px;
+                     }
+              }
+       }
+
+       @media (min-width: 500px) {
+              & {
+                     max-width: 29%;
+                     height: 100%;
+                     min-width: 251px;
+                     overflow-y: auto;
+                     border-right: 1px solid black;
+                     display: block;
+              }
+       }
 }
 
 /* width */
 ::-webkit-scrollbar {
        width: 6px;
 }
-/* Track */
-/* ::-webkit-scrollbar-track {
-       background: #f1f1f1;
-       border-radius: 20px;
-} */
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -127,20 +162,4 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
        background: #555;
-}
-
-@media (min-width: 500px) {
-       .sidebar {
-              max-width: 29%;
-              height: 100%;
-              min-width: 251px;
-              overflow-y: auto;
-              border-right: 1px solid black;
-              display: block;
-       }
-
-       .footer {
-              max-width: 29%;
-              min-width: 251px;
-       }
 }

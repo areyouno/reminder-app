@@ -1,17 +1,16 @@
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
-import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
-import Ox from '../../hoc/Ox';
-import * as actions from '../../store/actions/index';
-import styles from './Reminder.module.css';
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import RadioButtonChecked from "@material-ui/icons/RadioButtonChecked";
+import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
+import React, { useEffect, useRef, useState } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
+import styles from "./Reminder.module.scss";
 
 const Reminder = props => {
        const [isAdding, setIsAdding] = useState(false);
-       const [newInputStr, setNewInputStr] = useState('');
+       const [newInputStr, setNewInputStr] = useState("");
        const [reminderListCopy, setReminderListCopy] = useState([]);
 
        let inputRef = useRef();
@@ -31,8 +30,8 @@ const Reminder = props => {
 
        const onAddBlur = event => {
               setIsAdding(false);
-              setNewInputStr('');
-              if (event.target.value === '') {
+              setNewInputStr("");
+              if (event.target.value === "") {
                      return;
               }
               props.onAddReminder(event.target.value, props.reminderListIndex);
@@ -44,22 +43,23 @@ const Reminder = props => {
        };
 
        const onEditReminderHandler = (id, event) => {
-              // event.preventDefault(); //not sure if needed (removed; for verification)
               let reminders = [...reminderListCopy];
-              reminders[id] = event.target.value;
+              //look for index
+              let pos = reminders.map(reminder => reminder.id).indexOf(id);
+              reminders[pos].desc = event.target.value;
               setReminderListCopy(reminders); //update state copy
        };
 
        const onSaveReminderHandler = (id, event) => {
-              if (event.target.value === '') {
-                     props.onEditReminder(id, 'remove', null, props.reminderListIndex);
+              if (event.target.value === "") {
+                     props.onEditReminder(id, "remove", null, props.reminderListIndex);
                      return;
               }
-              props.onEditReminder(id, 'edit', event.target.value, props.reminderListIndex);
+              props.onEditReminder(id, "edit", event.target.value, props.reminderListIndex);
        };
 
-       const onToggleCheckboxHandler = (idx, listId) => {
-              props.onToggleCompleteReminder(idx, listId);
+       const onToggleCheckboxHandler = (id, listId) => {
+              props.onToggleCompleteReminder(id, listId);
        };
 
        const onKeypressHandler = event => {
@@ -68,43 +68,59 @@ const Reminder = props => {
               }
        };
 
+       const sortByCompleted = reminderListCopy.sort((a, b) => {
+              if (a.isCompleted && !b.isCompleted) {
+                     return 1;
+              } else if (!a.isCompleted && b.isCompleted) {
+                     return -1;
+              } else {
+                     return 0;
+              }
+       });
+
        let reminderHeader = (
-              <Ox>
-                     <div className={styles['reminder-btn-return']}>
-                            <Button onClick={props.returnHandler} style={{ padding: '6px 8px 6px 0px' }}>
+              <>
+                     <div className={styles["reminder-btn-return"]}>
+                            <Button onClick={props.returnHandler} style={{ padding: "6px 8px 6px 0px" }}>
                                    <NavigateBeforeIcon />
                                    Lists
                             </Button>
                      </div>
-                     <h2 className={styles['reminder__todo-title']}>{props.todoList[props.reminderListIndex].title}</h2>
-              </Ox>
+                     <h2 className={styles["reminder__todo-title"]}>{props.todoList[props.reminderListIndex].title}</h2>
+              </>
        );
 
-       let reminderList = <div className={styles['reminder__no-reminder']}>No Reminders</div>;
+       let reminderList = <div className={styles["reminder__no-reminder"]}>No Reminders</div>;
        if (props.todoList[props.reminderListIndex].todoItems.length > 0) {
-              let reminders = reminderListCopy;
+              // let reminders = reminderListCopy;
+              let reminders = sortByCompleted;
               reminderList = reminders.map((reminder, index) => {
                      return (
-                            <div key={index} className={styles['reminder__row-container']}>
-                                   <div className={styles['reminder__btn-radio-container']}>
+                            <div key={index} className={styles["reminder__row-container"]}>
+                                   <div className={styles["reminder__btn-radio-container"]}>
                                           <Checkbox
                                                  icon={<CircleUnchecked />}
                                                  checkedIcon={<RadioButtonChecked />}
                                                  color="default"
-                                                 onClick={() => onToggleCheckboxHandler(index, props.reminderListIndex)}
-                                                 checked={reminder.completed}
-                                                 className={styles['reminder__btn-radio']}
+                                                 onClick={() =>
+                                                        onToggleCheckboxHandler(reminder.id, props.reminderListIndex)
+                                                 }
+                                                 checked={reminder.isCompleted}
+                                                 className={styles["reminder__btn-radio"]}
                                           />
                                    </div>
-                                   <div className={styles['reminder__reminder-row']} key={index}>
+                                   <div className={styles["reminder__reminder-row"]} key={index}>
                                           <input
-                                                 className={styles['reminder__reminder-item']}
+                                                 className={`${styles["reminder__reminder-item"]} ${
+                                                        reminder.isCompleted === true
+                                                               ? styles["reminder__reminder-item--completed"]
+                                                               : ""
+                                                 }`}
                                                  type="text"
-                                                 id={index}
-                                                 // value={item === reminderListCopy[index] ? reminderListCopy[index] : ''}
+                                                 id={reminder.id}
                                                  value={reminder.desc}
-                                                 onChange={event => onEditReminderHandler(index, event)}
-                                                 onBlur={event => onSaveReminderHandler(index, event)}
+                                                 onChange={event => onEditReminderHandler(reminder.id, event)}
+                                                 onBlur={event => onSaveReminderHandler(reminder.id, event)}
                                           />
                                    </div>
                             </div>
@@ -113,20 +129,20 @@ const Reminder = props => {
        }
 
        let newInput = (
-              <div className={styles['reminder__row-container']}>
+              <div className={styles["reminder__row-container"]}>
                      <Checkbox
                             icon={<CircleUnchecked />}
                             checkedIcon={<RadioButtonChecked />}
                             color="default"
                             checked={false}
-                            className={isAdding ? styles['reminder__btn-radio'] : styles['reminder__btn-radio--hide']}
+                            className={isAdding ? styles["reminder__btn-radio"] : styles["reminder__btn-radio--hide"]}
                      />
                      <div
                             className={
-                                   isAdding ? styles['reminder__reminder-row'] : styles['reminder__reminder-row--hide']
+                                   isAdding ? styles["reminder__reminder-row"] : styles["reminder__reminder-row--hide"]
                             }>
                             <input
-                                   className={styles['reminder__reminder-item']}
+                                   className={styles["reminder__reminder-item"]}
                                    value={newInputStr}
                                    onChange={event => setNewInputStr(event.target.value)}
                                    onBlur={event => onAddBlur(event)}
@@ -138,9 +154,9 @@ const Reminder = props => {
        );
 
        const addReminderFooter = (
-              <div className={styles['reminder__footer']}>
+              <div className={styles["reminder__footer"]}>
                      <button
-                            className={styles['reminder__footer-btn-add']}
+                            className={styles["reminder__footer-btn-add"]}
                             disabled={isAdding}
                             onClick={newInputHandler}>
                             New Reminder
@@ -149,7 +165,7 @@ const Reminder = props => {
        );
 
        return (
-              <div className={`${styles['reminder-container']} ${props.show ? styles['container--show'] : ''}`}>
+              <div className={`${styles.reminder} ${props.show ? styles["container--show"] : ""}`}>
                      {reminderHeader}
                      {reminderList}
                      {newInput}

@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './Input.module.css';
+import React from "react";
+import styles from "./Input.module.scss";
 
 const input = props => {
        let inputElement = null;
@@ -19,29 +19,29 @@ const input = props => {
        }
 
        switch (props.elementType) {
-              case 'input':
+              case "input":
                      inputElement = (
                             <input
-                                   className={inputClasses.join(' ')}
+                                   className={inputClasses.join(" ")}
                                    {...props.elementConfig}
                                    value={props.value}
                                    onChange={props.changed}
                             />
                      );
                      break;
-              case 'textarea':
+              case "textarea":
                      inputElement = (
                             <textarea
-                                   className={inputClasses.join(' ')}
+                                   className={inputClasses.join(" ")}
                                    {...props.elementConfig}
                                    value={props.value}
                                    onChange={props.changed}
                             />
                      );
                      break;
-              case 'select':
+              case "select":
                      inputElement = (
-                            <select className={inputClasses.join(' ')} value={props.value} onChange={props.changed}>
+                            <select className={inputClasses.join(" ")} value={props.value} onChange={props.changed}>
                                    {props.elementConfig.options.map(option => (
                                           <option key={option.value} value={option.value}>
                                                  {option.displayValue}
@@ -54,7 +54,7 @@ const input = props => {
                      inputElement = (
                             <input
                                    autoFocus
-                                   className={inputClasses.join(' ')}
+                                   className={inputClasses.join(" ")}
                                    {...props.elementConfig}
                                    value={props.value}
                                    onChange={props.changed}

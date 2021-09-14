@@ -10,17 +10,14 @@
        top: 0;
        left: 0;
        transition: opacity 0.3s ease-out;
-}
 
-@media (min-width: 500px) {
-       .Modal {
-              position: fixed;
-              width: 75%;
-              height: 50%;
-              z-index: 500;
-              top: 10%;
-              left: 15%;
-              transition: opacity 0.3s ease-out;
+       @media (min-width: 500px) {
+              & {
+                     width: 75%;
+                     max-width: 600px;
+                     height: 50%;
+                     top: 10%;
+              }
        }
 }
 

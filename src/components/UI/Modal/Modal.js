@@ -1,8 +1,6 @@
-import React from 'react';
-import styles from './Modal.module.css';
-import Ox from '../../../hoc/Ox';
-import Backdrop from '../Backdrop/Backdrop';
-// import classNames from 'classnames';
+import React from "react";
+import styles from "./Modal.module.scss";
+import Backdrop from "../Backdrop/Backdrop";
 
 const Modal = props => {
        // shouldComponentUpdate(nextProps, nextState) {
@@ -10,7 +8,7 @@ const Modal = props => {
        // }
 
        return (
-              <Ox>
+              <>
                      <Backdrop show={props.show} clicked={props.modalClosed} />
                      <div
                             className={styles.Modal}
@@ -19,12 +17,12 @@ const Modal = props => {
                             //         [styles['Loading']]: props.loading
                             //  })}
                             style={{
-                                   transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                                   opacity: props.show ? '1' : '0'
+                                   transform: props.show ? "translate(calc(50vw - 50%))" : "translateY(-100vh)",
+                                   opacity: props.show ? "1" : "0"
                             }}>
                             {props.children}
                      </div>
-              </Ox>
+              </>
        );
 };
 
